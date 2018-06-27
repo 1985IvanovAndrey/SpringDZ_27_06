@@ -33,18 +33,23 @@ public class MainContoller {
     @RequestMapping(method = RequestMethod.GET)
     public String showPage(Model model) {
         model.addAttribute("studentsList", studentsList);
-        return "page/index";
+        return "redirect;/all";
     }
-        @RequestMapping(method = RequestMethod.GET)
+
+    @RequestMapping(value = "all", method = RequestMethod.GET)
     public String allStudents(@ModelAttribute Student student) {
         studentsList.add(new Student("1", "Kolya", "+380962514785", "MAN"));
         studentsList.add(new Student("2", "Ronaldo", "+380965214785", "MAN"));
         studentsList.add(new Student("3", "Vika", "+380962512485", "WOMAN"));
         studentsList.add(new Student("4", "Kristin", "+380969914785", "WOMAN"));
         studentsList.add(new Student("5", "Vovan", "+380962511185", "MAN"));
-        System.out.println(studentsList);
-            return "redirect:/";
+        return "page/index";
     }
+//    @RequestMapping(value="init",method = RequestMethod.GET)
+//    public String showPage(Model model) {
+//        model.addAttribute("studentsList", studentsList);
+//        return "redirect:/";
+//    }
 
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -54,7 +59,7 @@ public class MainContoller {
         System.out.printf(student.getPhone());
         System.out.printf(student.getSex());
         studentsList.add(new Student(student.getId(), student.getName(), student.getPhone(), student.getSex()));
-        return "redirect:/";
+        return "redirect;/";
 
         //    @RequestMapping(method = RequestMethod.GET)
 //    public String showIndex(Model model) {
