@@ -24,7 +24,7 @@
 </table>
 <br>
 <form action="/add" method="get" modelAttribute="student">
-    ID: <input type="int" name="id">
+    ID: <input type="text" name="id">
     <br>
     Name: <input type="text" name="name" >
     <br>

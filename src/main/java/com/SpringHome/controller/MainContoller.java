@@ -7,37 +7,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
-@RequestMapping("/")
-
+@RequestMapping("/show")
 public class MainContoller {
 
     ArrayList<Student> studentsList = new ArrayList<>();
 
-
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String allStudents(@ModelAttribute Student student) {
-//        studentsList.add(new Student(1, "Kolya", "+380962514785", "MAN"));
-//        studentsList.add(new Student(1, "Ronaldo", "+380965214785", "MAN"));
-//        studentsList.add(new Student(1, "Vika", "+380962512485", "WOMAN"));
-//        studentsList.add(new Student(1, "Kristin", "+380969914785", "WOMAN"));
-//        studentsList.add(new Student(1, "Vovan", "+380962511185", "MAN"));
-//        System.out.println(studentsList);
-//        return "page/index";
-//    }
-
-
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public String showPage(Model model) {
-        model.addAttribute("studentsList", studentsList);
-        return "redirect;/all";
+   //     model.addAttribute("studentsList", studentsList);
+//        if (studentsList==null) {
+//            return "redirect:/all";
+//        }else
+//            return "page/index";
+        return "redirect:/show/all";
     }
 
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    public String allStudents(@ModelAttribute Student student) {
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String allStudents(@ModelAttribute Student student,Model model) {
+        model.addAttribute("studentsList", studentsList);
         studentsList.add(new Student("1", "Kolya", "+380962514785", "MAN"));
         studentsList.add(new Student("2", "Ronaldo", "+380965214785", "MAN"));
         studentsList.add(new Student("3", "Vika", "+380962512485", "WOMAN"));
@@ -45,21 +36,11 @@ public class MainContoller {
         studentsList.add(new Student("5", "Vovan", "+380962511185", "MAN"));
         return "page/index";
     }
-//    @RequestMapping(value="init",method = RequestMethod.GET)
-//    public String showPage(Model model) {
-//        model.addAttribute("studentsList", studentsList);
-//        return "redirect:/";
-//    }
-
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add(@ModelAttribute Student student) {
-        System.out.printf(student.getId());
-        System.out.printf(student.getName());
-        System.out.printf(student.getPhone());
-        System.out.printf(student.getSex());
+    public String add(HttpServletRequest req,@ModelAttribute Student student) {
         studentsList.add(new Student(student.getId(), student.getName(), student.getPhone(), student.getSex()));
-        return "redirect;/";
+        return "redirect:/show/all";
 
         //    @RequestMapping(method = RequestMethod.GET)
 //    public String showIndex(Model model) {
